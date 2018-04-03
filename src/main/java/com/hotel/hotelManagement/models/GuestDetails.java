@@ -1,5 +1,7 @@
 package com.hotel.hotelManagement.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,8 +18,21 @@ public class GuestDetails {
     //perform validations here
     private String name;
     private String email;
-    private Date Arrival;
-    private Date Departure;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date arrival;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private Date departure;
+
+    public GuestDetails() {}
+
+
+    public GuestDetails(String name, String email, Date arrival, Date departure) {
+        this.name =  name;
+        this.email = email;
+        this.arrival = arrival;
+        this.departure = departure;
+    }
+
 
 
     public String getName() {
@@ -37,19 +52,19 @@ public class GuestDetails {
     }
 
     public Date getArrival() {
-        return Arrival;
+        return arrival;
     }
 
     public void setArrival(Date arrival) {
-        Arrival = arrival;
+        this.arrival = arrival;
     }
 
     public Date getDeparture() {
-        return Departure;
+        return departure;
     }
 
     public void setDeparture(Date departure) {
-        Departure = departure;
+        this.departure = departure;
     }
 
 
