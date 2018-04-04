@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>hotelManagement</name>
+	<configName>hotelManagement</configName>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

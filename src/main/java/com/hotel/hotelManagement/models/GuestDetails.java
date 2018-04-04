@@ -1,5 +1,6 @@
 package com.hotel.hotelManagement.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,46 +10,43 @@ import java.util.Date;
  * Created by darshansapaliga on 4/2/18.
  */
 @Entity
+@Table(name = "guestDetails")
 public class GuestDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer guestId;
 
     //perform validations here
-    private String name;
-    private String email;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private String guestName;
+    private String guestEmail;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "PST")
     private Date arrival;
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "PST")
     private Date departure;
+
+
 
     public GuestDetails() {}
 
-
-    public GuestDetails(String name, String email, Date arrival, Date departure) {
-        this.name =  name;
-        this.email = email;
-        this.arrival = arrival;
-        this.departure = departure;
+    public Integer getGuestId() {
+        return guestId;
     }
 
-
-
-    public String getName() {
-        return name;
+    public String getGuestName() {
+        return guestName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGuestEmail() {
+        return guestEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGuestEmail(String guestEmail) {
+        this.guestEmail = guestEmail;
     }
 
     public Date getArrival() {

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * Created by darshansapaliga on 4/2/18.
+ * Guest Details controller
+ * contains all guest details related operations
+ * CRUD operations on guest details
  */
 @RestController
 public class GuestController {
@@ -26,11 +28,16 @@ public class GuestController {
     private GenerateErrorResponse generateErrorResponse;
 
 
+    /*
+     *  method for making a booking
+     *  @Params: GuestDetails model object
+     *  Accepted values in model: guestName, guestEmail, arrival date, departure date
+    */
     @RequestMapping(value="/addGuestDetails", method = RequestMethod.POST)
     public ResponseEntity addGuestDetails(@RequestBody GuestDetails guestData) {
 
         try {
-            //call to the service layer
+
             GuestDetails guestDetails = guestDetailsService.addGuestDetails(guestData);
 
             return new ResponseEntity(guestDetails, HttpStatus.CREATED);
@@ -38,18 +45,10 @@ public class GuestController {
         } catch(GuestDetailsException ex) {
             return new ResponseEntity(generateErrorResponse.generateErrorReponse("404", ex.getMessage()), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity(generateErrorResponse.generateErrorReponse("404", "Internal Server Error"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(generateErrorResponse.generateErrorReponse("500", e.getMessage()), HttpStatus.NOT_FOUND);
         }
 
     }
-
-    @RequestMapping(value="/hello", method = RequestMethod.GET)
-    public ResponseEntity Hello() {
-
-        return new ResponseEntity("Hello", HttpStatus.OK);
-
-    }
-
 
 
 }
