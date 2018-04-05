@@ -1,6 +1,7 @@
 package com.hotel.hotelManagement.services;
 
 import com.hotel.hotelManagement.exceptions.GuestDetailsException;
+import com.hotel.hotelManagement.models.Config;
 import com.hotel.hotelManagement.models.GuestDetails;
 import com.hotel.hotelManagement.repositories.ConfigRepository;
 import com.hotel.hotelManagement.repositories.GuestDetailsRepository;
@@ -45,6 +46,10 @@ public class GuestDetailsService {
         if (guestDetails.getDeparture() == null)
             throw new GuestDetailsException("Guest Departure Date cannot be empty");
 
+        //if arrival date before departure date
+        if(guestDetails.getArrival().compareTo(guestDetails.getDeparture()) > 0)
+            throw new GuestDetailsException("Arrival date cannot be after departure date");
+
 
         //before saving, check for the number of bookings for all the dates of their stay
 
@@ -52,8 +57,13 @@ public class GuestDetailsService {
         List<Date> allDates = generateDateListInRange.getDaysBetweenDates(guestDetails.getArrival(), guestDetails.getDeparture());
 
         //get rooms and overbooking from config table
-        int rooms = configRepository.findByConfigName("rooms").getConfigNumber();
-        int overbookingLimit = ((configRepository.findByConfigName("overbooking").getConfigNumber() * rooms) / 100) + rooms;
+        Config room = configRepository.findByConfigName("rooms");
+        Config overbooking = configRepository.findByConfigName("overbooking");
+
+        if(room == null || overbooking == null)
+            throw new GuestDetailsException("No configuration setup. Unable to make a booking");
+        int rooms = room.getConfigNumber();
+        int overbookingLimit = ((overbooking.getConfigNumber() * rooms) / 100) + rooms;
 
         //check if bookings for all the dates booked are with overbooking limit
         for (Date date : allDates) {

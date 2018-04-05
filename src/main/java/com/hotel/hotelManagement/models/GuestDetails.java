@@ -29,6 +29,13 @@ public class GuestDetails {
 
     public GuestDetails() {}
 
+    public GuestDetails(String guestName, String guestEmail,Date arrival, Date departure) {
+        this.guestEmail = guestEmail;
+        this.guestName = guestName;
+        this.arrival = arrival;
+        this.departure = departure;
+    }
+
     public Integer getGuestId() {
         return guestId;
     }

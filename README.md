@@ -63,3 +63,23 @@ RETURN ERROR :
 {
     "404": "Booking limit reached for Sat Feb 11 00:00:00 PST 2017"
 }
+
+3. Testing
+
+I have tested the system on the following scenarios in Postman:
+
+a. Guest enters details normally - name, email, arrival, departure
+
+b. Guest enters arrival date after departure date
+
+c. Guest does not enter either of the four fields
+
+d. Guest attempts to make a booking, but there is no configuration in the system
+
+e. Configuration data is entered as a list
+
+f. Configuration can be entered as one data or multiple data - but in a list
+
+g. Configuration is unique by name, so same name configuration entered will update the data
+
+h. Overbooking limit is reached for a particular date, considering only one booking per room is allowed

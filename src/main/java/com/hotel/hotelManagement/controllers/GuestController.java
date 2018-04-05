@@ -51,4 +51,13 @@ public class GuestController {
     }
 
 
+    /*
+      *  method for docker testing - display hello world
+     */
+    @RequestMapping(value="/hello", method = RequestMethod.GET)
+    public ResponseEntity helloWorld() {
+            return new ResponseEntity("Hello World!", HttpStatus.CREATED);
+    }
+
+
 }
